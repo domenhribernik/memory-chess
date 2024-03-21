@@ -1,0 +1,21 @@
+1. memorize squares
+- random square input if it is black or white
+
+2. imagine a piece on chessboard
+- random piece, input all the moves of the piece
+
+3. movement
+- random piece (recomended knight), you get start and end, and you input the moves so it gets to the required square
+
+3.5. peice capture
+- knigh and queen, knight has to caputre queen without getting captured by the queen
+
+Now you can play blindfold chess
+
+4. Set number of moves blind, then the board is revealed, e.g. 5 moves then the board is shown then 5 moves, you play agiainst ai (you set the difficulty)
+- settings like having an empty board for help
+
+5. Play as many moves as you can, when you are stuck you have a button that shows you your position
+
+6. Blindfold chess no help
+- each step collects stats so you can monitor your progress
