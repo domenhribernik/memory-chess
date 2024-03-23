@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory Board</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div class="container">
     <h1>Memory Board</h1>
     <p>Your first task is to memorize all the squares on the chess board. You can have the board on / off for help, your goal is to recal from memory if the given square is light / dark</p>
+    <div class="controls">
+      <label for="board"><input type="checkbox" id="board" name="board"> Board</label> <br>
+      <label for="labels"><input type="checkbox" id="labels" name="labels"> Labels</label> <br>
+      <label for="squares"><input type="checkbox" id="squares" name="squares"> Squares</label>
+    </div>
+    <div class="board"></div>
   </div>
-  <div class="board"></div>
 </body>
-<script src="memory-board.js"></script>
+<script src="script.js"></script>
 </html>

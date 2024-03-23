@@ -16,6 +16,7 @@ body {
   display: inline-block;
   left: 50%;  
   transform: translateX(-50%);
+  margin-bottom: 10%;
 }
 
 h1 {
@@ -48,4 +49,50 @@ p, div {
 
 .lesson::before {
   content: "🔒";
+}
+
+.board {
+  display: none;
+  grid-template-columns: 40px repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px) 35px;
+  width: 430px;
+  margin: 30px 10px 0;
+}
+
+.square {
+  font-weight: bold;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: lightgoldenrodyellow;
+  letter-spacing: 1px;
+  text-shadow: 
+  -1px -1px 0 black,
+  1px -1px 0 black,
+  -1px 1px 0 black,
+  1px 1px 0 black;
+}
+
+.light {
+  background-color: #ddd;
+}
+
+.dark {
+  background-color: #111;
+}
+
+.helper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls {
+  margin: 15px 0 0 30px;
+}
+
+.controls label {
+  display: inline-block;
+  margin-bottom: 3px;
 }
