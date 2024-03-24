@@ -12,6 +12,7 @@ body {
 
 .container {
   position: absolute;
+  width: 60%;
   left: 50%;  
   transform: translateX(-50%);
   margin-bottom: 10%;
@@ -50,25 +51,20 @@ p, div {
 }
 
 .game {
-
   display: grid;
-  height: 600px;
-  grid-template-columns: 45% auto;
-  grid-template-rows: 20% auto;
-  margin-top: 25px;
-  gap: 15px;
-}
-
-.game img {
   position: relative;
-  margin: auto auto;
-  width: 80%;
+  grid-template-columns: 35% auto;
+  grid-template-rows: 20% 0;
+  margin-top: 25px;
+  margin-bottom: 100px;
+  gap: 15px;
 }
 
 .display {
   font-size: 5rem;
   text-align: center;
-  margin-top: 40px;
+  margin-top: 80px;
+  margin-left: 25px;
 }
 
 .board {
@@ -86,6 +82,9 @@ p, div {
   align-items: center;
   color: lightgoldenrodyellow;
   letter-spacing: 1px;
+}
+
+.square, i {
   text-shadow: 
   -1px -1px 0 black,
   1px -1px 0 black,
@@ -107,9 +106,46 @@ p, div {
   align-items: center;
 }
 
+.controls {
+  margin-left: 25px;
+}
+
 .controls label {
   display: inline-block;
   margin-bottom: 3px;
+}
+
+.inputs {
+  height: 12%;
+  width: 60%;
+  position: fixed;
+  display: grid;
+  grid-template-columns: auto auto;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.inputs .dark {
+  background-color: #111;
+}
+
+.inputs .light {
+  background-color: #ddd;
+}
+
+.inputs .dark,.inputs .light {
+  font-size: 2rem;
+  text-align: center;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.inputs i {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #popup {

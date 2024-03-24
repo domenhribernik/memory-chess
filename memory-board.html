@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" onmousedown="showPopup(event)" oncontextmenu="return false;">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory Board</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <div class="container">
     <h1>Memory Board</h1>
     <p>Your first task is to memorize all the squares on the chess board. You can have the board on / off for help, your goal is to recal from memory if the given square is light / dark</p>
     <div class="game">
-      <div class="display">E4</div>
       <div class="controls">
         <label for="board"><input type="checkbox" id="board" name="board" checked> Board</label> <br>
         <label for="labels"><input type="checkbox" id="labels" name="labels" checked> Labels</label> <br>
         <label for="squares"><input type="checkbox" id="squares" name="squares"> Squares</label>
       </div>
-      <img src="mouse.png" alt="Controls">
       <div class="board"></div>
+      <div class="display">E4</div>
+      <div></div>
     </div>
   </div>
   <div id="popup"></div>
+  <div class="inputs">
+    <div class="dark"><i class="fa-solid fa-arrow-left"></i></div>
+    <div class="light"><i class="fa-solid fa-arrow-right"></i></div>
+  </div>
 </body>
 <script src="script.js"></script>
 </html>
