@@ -11,9 +11,7 @@ body {
 }
 
 .container {
-  padding: 0 25%;
-  position: relative;
-  display: inline-block;
+  position: absolute;
   left: 50%;  
   transform: translateX(-50%);
   margin-bottom: 10%;
@@ -51,12 +49,33 @@ p, div {
   content: "🔒";
 }
 
+.game {
+
+  display: grid;
+  height: 600px;
+  grid-template-columns: 45% auto;
+  grid-template-rows: 20% auto;
+  margin-top: 25px;
+  gap: 15px;
+}
+
+.game img {
+  position: relative;
+  margin: auto auto;
+  width: 80%;
+}
+
+.display {
+  font-size: 5rem;
+  text-align: center;
+  margin-top: 40px;
+}
+
 .board {
   display: none;
   grid-template-columns: 40px repeat(8, 50px);
   grid-template-rows: repeat(8, 50px) 35px;
-  width: 430px;
-  margin: 30px 10px 0;
+  width: 440px;
 }
 
 .square {
@@ -88,11 +107,16 @@ p, div {
   align-items: center;
 }
 
-.controls {
-  margin: 15px 0 0 30px;
-}
-
 .controls label {
   display: inline-block;
   margin-bottom: 3px;
+}
+
+#popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 3rem;
 }

@@ -33,55 +33,51 @@ document.addEventListener("DOMContentLoaded", function() {
     let handleCheckboxChange = checkbox => {
         const checkboxId = checkbox.id;
 
-        switch (checkboxId) {
-            case 'squares':
-                showSquares(checkbox.checked);
-                break;
-            case 'labels':
-                showLabels(checkbox.checked);
-                break;
-            case 'board':
-                showBoard(checkbox.checked);
-                break;
-            default:
-                break;
+        if (board) {
+            switch (checkboxId) {
+                case 'squares':
+                    showSquares(checkbox.checked);
+                    break;
+                case 'labels':
+                    showLabels(checkbox.checked);
+                    break;
+                case 'board':
+                    showBoard(checkbox.checked);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     let showSquares = checked => {
-        if (board) {
-            if (board.style.display === "none") {
-                board.style.display = "grid";
-                document.getElementById('board').checked = true;
-            } 
-            chessBoard.forEach(row => {
-                row.forEach(square => checked ? square.innerText = square.classList[1].toString() : square.innerText = "");
-            });
-        }    
+        if (board.style.display === "none") {
+            board.style.display = "grid";
+            document.getElementById('board').checked = true;
+        } 
+        chessBoard.forEach(row => {
+            row.forEach(square => checked ? square.innerText = square.classList[1].toString() : square.innerText = "");
+        });  
     }
 
     let showLabels = checked => {
-        if (board) {
-            if (board.style.display === "none") {
-                board.style.display = "grid";
-                document.getElementById('board').checked = true;
-            } 
-            if (labels.length > 0) labels.forEach((label) => label.innerText = checked ? label.dataset.originalText : "");
-        }
+        if (board.style.display === "none") {
+            board.style.display = "grid";
+            document.getElementById('board').checked = true;
+        } 
+        if (labels.length > 0) labels.forEach((label) => label.innerText = checked ? label.dataset.originalText : "");
     };
 
     let showBoard = checked => {
-        if (board) {
-            if (document.getElementById('labels').checked === true) {
-                document.getElementById('labels').checked = false;
-                showLabels(false);
-            }
-            if (document.getElementById('squares').checked === true) {
-                document.getElementById('squares').checked = false;
-                showSquares(false);
-            }
-            board.style.display = checked ? "grid" : "none";
+        if (document.getElementById('labels').checked === true && !checked) {
+            document.getElementById('labels').checked = false;
+            showLabels(false);
         }
+        if (document.getElementById('squares').checked === true && !checked) {
+            document.getElementById('squares').checked = false;
+            showSquares(false);
+        }
+        board.style.display = checked ? "grid" : "none";
     }
 
     let isMobileDevice = () => window.innerWidth <= 768; 
@@ -94,6 +90,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (board) createBoard();
     document.querySelectorAll('.controls input[type="checkbox"]').forEach(checkbox => {
+        if (checkbox.checked) handleCheckboxChange(checkbox);
         checkbox.addEventListener('change', () => handleCheckboxChange(checkbox));
     });
 });
+
+function showPopup(event) {
+    console.log("happened");
+    var popup = document.getElementById('popup');
+    popup.style.display = 'block';
+    popup.textContent = event.button === 0 ? '✅' : '❌';
+
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, 1000);
+}
