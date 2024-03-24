@@ -11,7 +11,7 @@
 <body>
   <div class="container">
     <h1>Memory Board</h1>
-    <p>Your first task is to memorize all the squares on the chess board. You can have the board on / off for help, your goal is to recal from memory if the given square is light / dark</p>
+    <p>Your first task is to memorize all the squares on the chess board. The goal is to recal the color of the square, use the buttons at the bottom or arrow keys.</p>
     <div class="game">
       <div class="controls">
         <label for="board"><input type="checkbox" id="board" name="board" checked> Board</label> <br>
@@ -19,14 +19,17 @@
         <label for="squares"><input type="checkbox" id="squares" name="squares"> Squares</label>
       </div>
       <div class="board"></div>
-      <div class="display">E4</div>
+      <div class="display">
+        <div class="square-name"></div>
+        <div class="score">Score: 0</div>
+      </div>
       <div></div>
     </div>
   </div>
   <div id="popup"></div>
   <div class="inputs">
-    <div class="dark"><i class="fa-solid fa-arrow-left"></i></div>
-    <div class="light"><i class="fa-solid fa-arrow-right"></i></div>
+    <div class="dark-button"><i class="fa-solid fa-arrow-left"></i></div>
+    <div class="light-button"><i class="fa-solid fa-arrow-right"></i></div>
   </div>
 </body>
 <script src="script.js"></script>
