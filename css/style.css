@@ -21,6 +21,10 @@ h1 {
   font-size: 3rem;
 }
 
+h1 a i {
+  padding-right: 10px;
+}
+
 
 h3 {
   font-size: 1.5rem;
@@ -47,7 +51,7 @@ p, div {
 }
 
 .lessons .lesson:hover {
-  color: blueviolet;
+  color: gold;
 }
 
 .lesson::before {
@@ -115,8 +119,15 @@ p, div {
   align-items: center;
 }
 
-.controls {
-  margin-left: 25px;
+.controls, .pieces {
+  margin: 0 0 10px 25px;
+}
+
+.pieces {
+  border-top: 2px solid lightgoldenrodyellow;
+  padding-top: 20px;
+  margin-top: 20px;
+  width: 60%;
 }
 
 .controls label {
@@ -171,4 +182,40 @@ p, div {
 
 .popup-hidden {
   opacity: 0 !important;
+}
+
+.text-input {
+  display: inline-block;
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  bottom: 20px;
+  text-align: center;
+}
+
+.move-input, .enter {
+  display: inline-block;
+  position: relative;
+  font-size: 5rem;
+  width: 200px;
+  height: 120px;
+  margin: 0 auto;
+  bottom: 20px;
+  padding: 10px 0;
+  text-align: center;
+  color: black;
+  outline: none;
+  border: 3px solid #111;
+  border-radius: 10px;
+}
+
+.enter {
+  width: 100px;
+}
+
+/* Legal Moves */
+
+.legal-moves .game {
+  grid-template-columns: 30% 35% auto;
 }

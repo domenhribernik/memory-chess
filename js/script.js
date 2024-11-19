@@ -99,9 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(display);
     }
 
-    let handleInputClick = color => {
+    let handleInputClick = colorOrButton => {
         let code = display.innerText[0].charCodeAt(0) + parseInt(display.innerText[1]);
-        code % 2 === color ? (showPopup(0), scoreNum++, score.innerText = `Score: ${scoreNum}`) :
+        code % 2 === colorOrButton ? (showPopup(0), scoreNum++, score.innerText = `Score: ${scoreNum}`) :
             (showPopup(1), scoreNum = 0, score.innerText = `Score: ${scoreNum}`);
         display.innerText = squares.shift();
         if (squares.length === 0) createSquareGame();
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         popup.classList.remove('popup-hidden');
         setTimeout(function () {
             popup.classList.add('popup-hidden');
-        }, 500);
+        }, 300);
     }
 
     let isMobileDevice = () => window.innerWidth <= 768;
@@ -130,7 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
         case "memory-board":
             createSquareGame();
             break;
-
+        case "legal-moves":
+            createPiecePositionGame();
         default:
             break;
     }
