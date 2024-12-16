@@ -99,6 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(display);
     }
 
+    let createPiecePositionGame = () => {
+        
+    }
+
     let handleInputClick = colorOrButton => {
         let code = display.innerText[0].charCodeAt(0) + parseInt(display.innerText[1]);
         code % 2 === colorOrButton ? (showPopup(0), scoreNum++, score.innerText = `Score: ${scoreNum}`) :

@@ -52,10 +52,11 @@ p, div {
 
 .lessons .lesson:hover {
   color: gold;
+  background-color: darkslategrey;
 }
 
 .lesson::before {
-  content: "♦️";
+  content: "♦";
 }
 
 .game {
