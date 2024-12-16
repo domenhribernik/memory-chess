@@ -2,8 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const board = document.querySelector('.board');
     let chessBoard = [];
     let labels = [];
-    let squares = [];
-    let display = document.querySelector('.square-name');
+    const enterButton = document.querySelector(".enter");
     let score = document.querySelector('.score');
     let scoreNum = 0;
 
@@ -60,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
             board.style.display = 'grid';
             document.getElementById('board').checked = true;
         }
+        
         chessBoard.forEach(row => {
             row.forEach(square => checked ? square.innerText = square.classList[1].toString() : square.innerText = '');
         });
@@ -85,30 +85,33 @@ document.addEventListener("DOMContentLoaded", function () {
         board.style.display = checked ? 'grid' : 'none';
     }
 
-    let createSquareGame = () => {
-        for (let i = 1; i <= 8; i++) {
-            for (let j = 1; j <= 8; j++) {
-                squares.push(String.fromCharCode(j + 64) + (9 - i).toString());
-            }
-        }
-        for (let i = squares.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [squares[i], squares[j]] = [squares[j], squares[i]];
-        }
-        display.innerText = squares.shift();
-        console.log(display);
-    }
-
     let createPiecePositionGame = () => {
-        
+        randomPiece();
     }
 
-    let handleInputClick = colorOrButton => {
-        let code = display.innerText[0].charCodeAt(0) + parseInt(display.innerText[1]);
-        code % 2 === colorOrButton ? (showPopup(0), scoreNum++, score.innerText = `Score: ${scoreNum}`) :
-            (showPopup(1), scoreNum = 0, score.innerText = `Score: ${scoreNum}`);
-        display.innerText = squares.shift();
-        if (squares.length === 0) createSquareGame();
+    let randomPiece = path => {
+        let src = "../assets/white";
+        const displayPiece = document.querySelector('.piece-img');
+        const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'];
+        const pieceTable = {
+            king: 'K',
+            queen: 'Q',
+            rook: 'R',
+            bishop: 'B',
+            knight: 'N',
+            pawn: ''
+        };
+        const randomPiece = pieces[Math.floor(Math.random() * pieces.length)];
+        const randomRow = Math.floor(Math.random() * 8) + 1;
+        const randomCol = String.fromCharCode(97 + Math.floor(Math.random() * 8));
+        const randomPosition = `${randomCol}${randomRow}`;
+
+        displayPiece.src = `${src}/${randomPiece}.svg`;
+        score.textContent = pieceTable[randomPiece] + randomPosition;
+    }
+
+    let handleEnterClick = () => {
+        console.log("test");
     }
 
     let showPopup = result => {
@@ -128,29 +131,14 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("You are not on a mobile device.");
     }
 
-    var pageName = window.location.pathname.split("/").pop().split(".")[0];
-
-    switch (pageName) {
-        case "memory-board":
-            createSquareGame();
-            break;
-        case "legal-moves":
-            createPiecePositionGame();
-        default:
-            break;
-    }
+    createPiecePositionGame();
 
     if (board) createBoard();
     document.querySelectorAll('.controls input[type="checkbox"]').forEach(checkbox => {
         if (checkbox.checked) handleCheckboxChange(checkbox);
         checkbox.addEventListener('change', () => handleCheckboxChange(checkbox));
     });
-    document.querySelectorAll('.dark-button, .light-button').forEach(element => {
-        let button = element.className === "dark-button" ? 0 : 1;
-        element.addEventListener('click', () => handleInputClick(button));
-    });
-    document.addEventListener('keydown', event => {
-        if (event.key === "ArrowLeft") handleInputClick(0);
-        else if (event.key === "ArrowRight") handleInputClick(1);
-    });
+    if (enterButton) {
+        enterButton.addEventListener('click', () => handleEnterClick());
+    }
 });

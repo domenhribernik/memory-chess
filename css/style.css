@@ -69,7 +69,6 @@ p, div {
 
 .display {
   text-align: center;
-  margin-top: 80px;
   margin-left: 25px;
 }
 
@@ -215,8 +214,22 @@ p, div {
   width: 100px;
 }
 
+/* Memory board */
+
+.memory-board .display {
+  margin-top: 80px;
+}
+
 /* Legal Moves */
 
 .legal-moves .game {
   grid-template-columns: 30% 35% auto;
+}
+
+.piece-img {
+  height: 15rem;
+}
+
+.spacer {
+  margin-top: 30px;
 }
