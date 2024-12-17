@@ -1,98 +1,101 @@
 document.addEventListener("DOMContentLoaded", function () {
     const board = document.querySelector('.board');
+    let pieces = ['pawn'];
+    let currSquareName = "";
+    let randomPieceName = "";
+    let randomPiecePosition = "";
+    let currSquare = null;
     let chessBoard = [];
     let labels = [];
     const enterButton = document.querySelector(".enter");
     let score = document.querySelector('.score');
     let scoreNum = 0;
 
-    let createBoard = () => {
-        let isWhite = true;
-
-        for (let i = 1; i <= 9; i++) {
-            chessBoard[i - 1] = [];
-            for (let j = 0; j <= 8; j++) {
-                const square = document.createElement('div');
-                const squareName = String.fromCharCode(j + 96) + (9 - i).toString();
-                if (i === 9 || j === 0) {
-                    square.classList.add('helper');
-                    i === 9 && j !== 0 ? square.dataset.originalText = String.fromCharCode(j + 96) :
-                        i !== 9 && j === 0 ? square.dataset.originalText = (9 - i).toString() : square.dataset.originalText = "";
-                    labels.push(square);
-                    board.appendChild(square);
-                }
-                else {
-                    square.classList.add('square', squareName);
-                    isWhite ? square.classList.add('light') : square.classList.add('dark');
-                    isWhite = !isWhite;
-                    chessBoard[i - 1][j] = square;
-                    board.appendChild(square);
-                }
-            }
-            isWhite = !isWhite;
-        }
+    let createPiecePositionGame = () => {
+        if (board) chessBoard = Utils.createBoard(board, labels);
+        handleEnterClick();
     }
 
-    let handleCheckboxChange = checkbox => {
-        const checkboxId = checkbox.id;
+    let getAllMoves = () => {
+        board.querySelectorAll('.square').forEach(square => square.classList.remove('hilight'));
+        let moves = [];
+        let directions = [];
+        let color = 'w';
+        let position = randomPiecePosition;
+        let piece = randomPieceName;
 
-        if (board) {
-            switch (checkboxId) {
-                case 'squares':
-                    showSquares(checkbox.checked);
-                    break;
-                case 'labels':
-                    showLabels(checkbox.checked);
-                    break;
-                case 'board':
-                    showBoard(checkbox.checked);
-                    break;
+        switch (piece) {
+            case 'king':
+                directions = [
+                    [1, 0], [-1, 0], [0, 1], [0, -1], 
+                    [1, 1], [1, -1], [-1, 1], [-1, -1]
+                ];
+                simpleDirections(moves, directions, position);
+                break;
+            case 'queen':
+                directions = [
+                    [1, 0], [-1, 0], [0, 1], [0, -1],
+                    [1, 1], [1, -1], [-1, 1], [-1, -1]
+                ];
+                complexDirections(moves, directions, position);
+                break;
+            case 'rook':
+                directions = [
+                    [1, 0], [-1, 0], [0, 1], [0, -1]
+                ];
+                complexDirections(moves, directions, position);
+                break;
+            case 'bishop':
+                directions = [
+                    [1, 1], [1, -1], [-1, 1], [-1, -1]
+                ];
+                complexDirections(moves, directions, position);
+                break;
+            case 'knight':
+                directions = [
+                    [2, 1], [2, -1], [-2, 1], [-2, -1],
+                    [1, 2], [1, -2], [-1, 2], [-1, -2]
+                ];
+                simpleDirections(moves, directions, position);
+                break;
+            case 'pawn':
+                moves.push(position[0] + (parseInt(position[1]) + 1));
+                break;
                 default:
                     break;
-            }
-            window.scrollTo(0, 100);
-        }
+                }
+                
+        console.log(moves);
+        return moves;
     }
 
-    let showSquares = checked => {
-        if (board.style.display === 'none') {
-            board.style.display = 'grid';
-            document.getElementById('board').checked = true;
-        }
-        
-        chessBoard.forEach(row => {
-            row.forEach(square => checked ? square.innerText = square.classList[1].toString() : square.innerText = '');
+    let simpleDirections = (moves, directions, position) => {
+        directions.forEach(move => {
+            const newRow = position[0].charCodeAt(0) + move[0];
+            const newCol = parseInt(position[1]) + move[1];
+            if (newRow >= 97 && newRow <= 104 && newCol >= 1 && newCol <= 8) {
+                moves.push(String.fromCharCode(newRow) + newCol);
+            }
         });
     }
 
-    let showLabels = checked => {
-        if (board.style.display === 'none') {
-            board.style.display = 'grid';
-            document.getElementById('board').checked = true;
-        }
-        if (labels.length > 0) labels.forEach((label) => label.innerText = checked ? label.dataset.originalText : '');
-    };
-
-    let showBoard = checked => {
-        if (document.getElementById('labels').checked === true && !checked) {
-            document.getElementById('labels').checked = false;
-            showLabels(false);
-        }
-        if (document.getElementById('squares').checked === true && !checked) {
-            document.getElementById('squares').checked = false;
-            showSquares(false);
-        }
-        board.style.display = checked ? 'grid' : 'none';
-    }
-
-    let createPiecePositionGame = () => {
-        randomPiece();
+    let complexDirections = (moves, directions, position) => {
+        directions.forEach(direction => {
+            for (let i = 1; i < 8; i++) {
+                const newRow = position[0].charCodeAt(0) + direction[0] * i;
+                const newCol = parseInt(position[1]) + direction[1] * i;
+                if (newRow >= 97 && newRow <= 104 && newCol >= 1 && newCol <= 8) {
+                    moves.push(String.fromCharCode(newRow) + newCol);
+                } else {
+                    break;
+                }
+            }
+        });
     }
 
     let randomPiece = path => {
-        let src = "../assets/white";
+        let src = "../assets/white"; 
         const displayPiece = document.querySelector('.piece-img');
-        const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'];
         const pieceTable = {
             king: 'K',
             queen: 'Q',
@@ -101,31 +104,73 @@ document.addEventListener("DOMContentLoaded", function () {
             knight: 'N',
             pawn: ''
         };
-        const randomPiece = pieces[Math.floor(Math.random() * pieces.length)];
-        const randomRow = Math.floor(Math.random() * 8) + 1;
-        const randomCol = String.fromCharCode(97 + Math.floor(Math.random() * 8));
-        const randomPosition = `${randomCol}${randomRow}`;
+        randomPieceName = pieces[Math.floor(Math.random() * pieces.length)];
+        randomPiecePosition = `${String.fromCharCode(97 + Math.floor(Math.random() * 8))}${Math.floor(Math.random() * 8) + 1}`;
+        randomPieceName === 'pawn' && randomPiecePosition[1] == 8 ? randomPiecePosition = `${randomPiecePosition[0]}7` : null; 
 
-        displayPiece.src = `${src}/${randomPiece}.svg`;
-        score.textContent = pieceTable[randomPiece] + randomPosition;
+        displayPiece.src = `${src}/${randomPieceName}.svg`;
+        score.textContent = pieceTable[randomPieceName] + randomPiecePosition;
+        currSquare = document.querySelector(`.${randomPiecePosition}`);
+        if (currSquare.innerText != "") {
+            currSquareName = currSquare.innerText;
+            currSquare.innerText = "";
+        }
+        if (currSquare) {
+            const pieceImg = document.createElement('img');
+            pieceImg.src = `${src}/${randomPieceName}.svg`;
+            pieceImg.classList.add('small-piece-img');
+            pieceImg.classList.add(randomPieceName);
+            currSquare.appendChild(pieceImg);
+        }
+    }
+
+    let deletePiece = () => {
+        currSquare.querySelector('.small-piece-img').remove();
+        if (currSquareName != "") {
+            currSquare.innerText = currSquareName;
+            currSquareName = "";
+        }
+        else if (document.getElementById('squares').checked) {
+            currSquare.innerText = currSquare.classList[1];
+        }
+    }
+
+    let handleRadioChange = radio => {
+        switch (radio.value) {
+            case 'king':
+                pieces = ['king'];
+                break;
+            case 'queen':
+                pieces = ['queen'];
+                break;
+            case 'rook':
+                pieces = ['rook'];
+                break;
+            case 'bishop':
+                pieces = ['bishop'];
+                break;
+            case 'knight':
+                pieces = ['knight'];
+                break;
+            case 'pawn':
+                pieces = ['pawn'];
+                break;
+            default:
+                pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'];
+                break;
+        }
     }
 
     let handleEnterClick = () => {
-        console.log("test");
+        currSquare ? deletePiece() : null;
+        randomPiece();
+        const moves = getAllMoves();
+        moves.forEach(move => {
+            board.querySelector(`.${move}`).classList.add('hilight');
+        });
     }
 
-    let showPopup = result => {
-        var popup = document.getElementById('popup');
-        popup.textContent = result === 0 ? '✅' : '❌';
-        popup.classList.remove('popup-hidden');
-        setTimeout(function () {
-            popup.classList.add('popup-hidden');
-        }, 300);
-    }
-
-    let isMobileDevice = () => window.innerWidth <= 768;
-
-    if (isMobileDevice()) {
+    if (Utils.isMobileDevice()) {
         console.log("You are on a mobile device.");
     } else {
         console.log("You are not on a mobile device.");
@@ -133,12 +178,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     createPiecePositionGame();
 
-    if (board) createBoard();
     document.querySelectorAll('.controls input[type="checkbox"]').forEach(checkbox => {
-        if (checkbox.checked) handleCheckboxChange(checkbox);
-        checkbox.addEventListener('change', () => handleCheckboxChange(checkbox));
+        if (checkbox.checked) Utils.handleCheckboxChange(checkbox, chessBoard, board, labels);
+        checkbox.addEventListener('change', () => Utils.handleCheckboxChange(checkbox, chessBoard, board, labels));
+    });
+    document.querySelectorAll('.pieces input[type="radio"]').forEach(radio => {
+        if (radio.checked) handleRadioChange(radio);
+        radio.addEventListener('change', () => handleRadioChange(radio));
     });
     if (enterButton) {
         enterButton.addEventListener('click', () => handleEnterClick());
+        document.addEventListener('keydown', event => {
+            if (event.key === "Enter") handleEnterClick();
+        });
     }
 });

@@ -39,6 +39,10 @@ p, div {
   font-size: 1.3rem;
 }
 
+a {
+  text-decoration: none;
+}
+
 .lessons {
   display: inline-block;
   margin-top: 20px;
@@ -111,6 +115,10 @@ p, div {
 
 .dark {
   background-color: #111;
+}
+
+.hilight {
+  background-color: goldenrod;
 }
 
 .helper {
@@ -214,6 +222,31 @@ p, div {
   width: 100px;
 }
 
+/* Pieces */
+
+.piece-img {
+  height: 15rem;
+}
+
+.small-piece-img {
+  z-index: 1;
+  height: 2.8rem;
+}
+
+.small-piece-img.knight {
+  margin-left: 0.4rem;
+  height: 2.7rem;
+}
+
+.small-piece-img.pawn {
+  height: 2.6rem;
+}
+
+.small-piece-img.king {
+  margin-left: 0.2rem;
+  height: 3rem;
+}
+
 /* Memory board */
 
 .memory-board .display {
@@ -224,10 +257,6 @@ p, div {
 
 .legal-moves .game {
   grid-template-columns: 30% 35% auto;
-}
-
-.piece-img {
-  height: 15rem;
 }
 
 .spacer {
